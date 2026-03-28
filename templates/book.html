@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Package</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; padding: 20px; color: #333; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; border: 3px solid transparent; }
+        .card:hover { transform: translateY(-5px); }
+        .card.selected { border-color: #e67e22; }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 15px; }
+        .booking-controls { background: white; padding: 20px; border-radius: 10px; margin-top: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .input-group { margin-bottom: 15px; }
+        input[type="date"], input[type="time"], input[type="number"] { padding: 10px; width: 100%; max-width: 200px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+        .price-display { font-size: 24px; color: #27ae60; font-weight: bold; margin: 20px 0; }
+        .submit-btn { background: #e67e22; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 18px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Hello, {{ username }}! Where to next?</h1>
+        <a href="/logout" style="color: #c0392b; text-decoration: none; font-weight: bold;">Logout</a>
+    </div>
+
+    <form method="post" id="bookingForm">
+        <input type="hidden" name="package_id" id="selectedPackageId" required>
+
+        <div class="grid">
+            {% for pkg in packages %}
+            <div class="card" onclick="selectPackage({{ pkg[0] }}, {{ pkg[2] }}, this)">
+                <img src="{{ pkg[3] }}" alt="{{ pkg[1] }}">
+                <div class="card-content">
+                    <h3>{{ pkg[1] }}</h3>
+                    <p>₹{{ pkg[2] }} / person</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="booking-controls">
+            <div class="input-group">
+                <label>Travel Date:</label><br>
+                <input type="date" name="travel_date" required>
+            </div>
+            <div class="input-group">
+                <label>Arrival Time:</label><br>
+                <input type="time" name="travel_time" required>
+            </div>
+            <div class="input-group">
+                <label>Number of Adventurers:</label><br>
+                <input type="number" name="people" id="peopleCount" value="1" min="1" onchange="calculateTotal()" required>
+            </div>
+
+            <div class="price-display">Total Expected Cost: ₹<span id="totalDisplay">0.00</span></div>
+            
+            <button type="submit" class="submit-btn">Confirm Adventure</button>
+        </div>
+    </form>
+
+    <script>
+        let currentPrice = 0;
+
+        function selectPackage(id, price, element) {
+            // Remove highlight from all cards
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+            // Highlight clicked card
+            element.classList.add('selected');
+            
+            // Set hidden input value and update price
+            document.getElementById('selectedPackageId').value = id;
+            currentPrice = price;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            let people = document.getElementById('peopleCount').value;
+            let total = currentPrice * people;
+            document.getElementById('totalDisplay').innerText = total.toFixed(2);
+        }
+    </script>
+</body>
+</html>

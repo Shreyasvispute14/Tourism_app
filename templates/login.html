@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Explorer Tours</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #2c3e50; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .auth-box { background: #34495e; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); width: 300px; text-align: center; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: none; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; margin-top: 10px; background: #e67e22; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #d35400; }
+        .toggle-text { font-size: 12px; margin-top: 15px; cursor: pointer; color: #bdc3c7; }
+    </style>
+</head>
+<body>
+    <div class="auth-box">
+        <h2>Welcome</h2>
+        <form method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="phone" id="phone" placeholder="Phone (for registration)" style="display:none;">
+            
+            <button type="submit" name="login" id="loginBtn">Login</button>
+            <button type="submit" name="register" id="regBtn" style="display:none; background: #27ae60;">Register</button>
+        </form>
+        <p class="toggle-text" onclick="toggleMode()">Need an account? Register here.</p>
+    </div>
+
+    <script>
+        let isLogin = true;
+        function toggleMode() {
+            isLogin = !isLogin;
+            document.getElementById('phone').style.display = isLogin ? 'none' : 'block';
+            document.getElementById('phone').required = !isLogin;
+            document.getElementById('loginBtn').style.display = isLogin ? 'block' : 'none';
+            document.getElementById('regBtn').style.display = isLogin ? 'none' : 'block';
+            document.querySelector('.toggle-text').innerText = isLogin ? "Need an account? Register here." : "Have an account? Login here.";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Success</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #ecf0f1; text-align: center; }
+        .box { background: white; padding: 50px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #27ae60; }
+        a { display: inline-block; margin-top: 20px; padding: 10px 20px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Booking Confirmed, {{ username }}!</h1>
+        <p>Your dates are locked in. We have securely saved your itinerary.</p>
+        <a href="/book">Book Another Adventure</a>
+    </div>
+</body>
+</html>

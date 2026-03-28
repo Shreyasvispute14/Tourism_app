@@ -1,0 +1,32 @@
+-- 1. Create the Users Table
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL, -- Storing as plain text for simplicity, but needs hashing in production
+    phone VARCHAR(20) NOT NULL
+);
+
+-- 2. Create the Packages Table
+CREATE TABLE packages (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price_per_person NUMERIC(10, 2) NOT NULL,
+    image_url TEXT NOT NULL
+);
+
+-- 3. Create the Bookings Table
+CREATE TABLE bookings (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    package_id INTEGER REFERENCES packages(id),
+    travel_date DATE NOT NULL,
+    travel_time TIME NOT NULL,
+    num_people INTEGER NOT NULL,
+    total_cost NUMERIC(10, 2) NOT NULL
+);
+
+-- 4. Insert Unique Interactive Packages
+INSERT INTO packages (name, price_per_person, image_url) VALUES 
+('Rajmachi Fort Sunrise Trek', 1200.00, 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=300&fit=crop'),
+('Western Ghats Cycling Expedition', 2500.00, 'https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=400&h=300&fit=crop'),
+('Mulshi Lake Camping Retreat', 1800.00, 'https://images.unsplash.com/photo-1675788384262-4c4a95cdfe48?q=80&w=1355&auto=format&fit=crop');
