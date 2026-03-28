@@ -9,7 +9,7 @@ tourism_app/
     └── success.html
     
     
-    A> To view entries in postgres through terminal:
+    A> To view entries in postgres through terminal(linux):
     	1.sudo -U postgres psql
     	2.\c tourismdb
     	3.\d
